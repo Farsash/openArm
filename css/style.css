@@ -1,0 +1,13 @@
+body {
+  background-image: url(../img/bg.jpg);
+  background-repeat: repeat;
+  background-size: 30px;
+}
+
+header {
+    position: fixed;
+    top:0;
+    left:0;
+    right: 0;
+    height: 256px;
+}
