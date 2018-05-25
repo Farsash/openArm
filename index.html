@@ -15,10 +15,13 @@
         <h2>Диаграмма</h2>
     </header>
     <div class="group_panel">
+        <input value="Анимация" onclick="Animation('animationName', 'g')" type="button">
+        <input value="Создать группу" onclick="CreateGroup()" type="button">
+        <input value="Тест" onclick="CreateGroup()" type="button">
         <h3>Группы</h3>
         <div class="layersBlock">
-          <ul id="layers">
-              <a href="#" >NameGroup</a>
+          <ul id="layers" id="layers">
+              <li><a href=# name="NameGroup" onclick="AddNode( this )">+</a><a href="#">NameGroup</a></li>
           </ul>
         </div>
     </div>
@@ -26,56 +29,9 @@
     
         <div class="tree">
             <ul>
-                <li>
-                    <a href="#">Parent</a>
-                    <ul>
-                        <li>
-                            <a href="#">Child</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Grand Child</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Петя</a>
-                            <ul>
-                                <li><a href="#">Grand Child</a></li>
-                    <li><a href="#">Ещё Петя</a></li>
-                    <li><a href="#">Ещё Петя</a></li>
-                    <li><a href="#">Ещё Петя</a></li>
-                    <li><a href="#">Ещё Петя</a></li>
-                                <li>
-                                    <a href="#">Grand Child</a>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Great Grand Child</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Great Grand Child</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Great Grand Child</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="#">Great Grand Child</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Great Grand Child</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Great Grand Child</a>
-                                                </li>
-                                            </ul>
-                                            
-                                            
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Grand Child</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                <li id="start">
+                    <a>start</a>
+                    <a nodes="start" id="start_p" onclick="SelectNode( this )">+</a>
                 </li>
             </ul>
         </div>
