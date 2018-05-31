@@ -176,8 +176,8 @@ function SelectNode( el ){
     var id_node = el.getAttribute('nodes');
     bridgeConnect = id_node;
     console.log('Записал', bridgeConnect);
-   
-    
+    el.id = id_node + "_p";
+  
 }
 function AddNode( el ){
     console.log('Принял', bridgeConnect);
@@ -185,8 +185,10 @@ function AddNode( el ){
     var node = document.getElementById(bridgeConnect);
     var node_p = document.getElementById(bridgeConnect + "_p");
     
-    var _child = node_p.getAttribute('child'); 
+    var _child = node_p.getAttribute('child');
+    console.log(_child);
     if(!_child){
+        console.log('Создал Child');
         var node_chld = document.createElement('ul');
         node.appendChild(node_chld);
         node_p.setAttribute('child', nameBlock + ch + rn);
