@@ -15,6 +15,11 @@ var Animations = {
   }
 }
 
+// Подумать!
+var typeEl = [{
+    _: "sdfsdf"
+}]
+
 window.addEventListener("mousedown", SelectElement, false);
 
 // Shift + Click
@@ -50,6 +55,12 @@ function SelectElement(){
           if (elem.hasAttribute("style") === true){
             ResetAttribute(elementFromPoint, elem.getAttribute("style"));
             elem.removeAttribute("style");
+              
+            if(elem.id.charAt(0) === '_'){
+                elem.setAttribute('onclick', '_ClicSwith()');
+            }
+              
+              
           }
           
           elem.setAttribute("stroke", 'green');
@@ -110,6 +121,8 @@ function UILayers( name ){
     //ly.onmouseover = HoverLayers(name);
     ly.setAttribute('onmouseover','HoverLayers("'+ name +'")');
     ly.setAttribute('onmouseout','DeHoverLayers("'+ name +'")');
+    ly.setAttribute('onclick','AddNode( this )');
+    ly.setAttribute('name', name);
   
 
   
@@ -185,6 +198,9 @@ function AddNode( el ){
     var node = document.getElementById(bridgeConnect);
     var node_p = document.getElementById(bridgeConnect + "_p");
     
+    var animData = {}; // Пакет данных для записи анимации
+    animData.checkStart = bridgeConnect;
+    
     var _child = node_p.getAttribute('child');
     console.log(_child);
     if(!_child){
@@ -194,84 +210,86 @@ function AddNode( el ){
         node_p.setAttribute('child', nameBlock + ch + rn);
         node_chld.id = nameBlock + ch + rn;
         bl += 1;
+        
+        animData.child = false;
+        
     } else {
         var node_chld = document.getElementById(_child);
     }
     
     var node_block = document.createElement('li'); 
     node_block.id = nameBlock + ch + 'block' + bl + rn;
+    node_block.setAttribute('onmouseover','HoverLayers("'+ nameBlock +'")');
+    node_block.setAttribute('onmouseout','DeHoverLayers("'+ nameBlock +'")');
+    node_block.setAttribute('name', nameBlock);
     var node_block_name = document.createElement('a');
-    node_block_name.innerHTML= nameBlock + ch + 'block' + bl + rn;
+    node_block_name.innerHTML= nameBlock
     node_block.appendChild(node_block_name);
     
     var node_block_but = document.createElement('a');
     node_block_but.innerHTML= "+";
     node_block_but.setAttribute('nodes', nameBlock + ch + 'block' + bl + rn);
     node_block_but.setAttribute('onclick', 'SelectNode( this )');
+    node_block_but.setAttribute('last', bridgeConnect); // Для анимации, передаём прошлый элемент
     node_block.appendChild(node_block_but);
 
     node_chld.appendChild(node_block);
     node.appendChild(node_chld);
     
+    animData.name = nameBlock;
+    
     ch += 1;
     // КОСТЫЛЬ из-за постоянного совпадения ID и имён
     rn = getRandomInt(0, 1000);
+    
+    console.log(Animations.animationName);
+    
+    var anObj = {
+        grName: nameBlock,
+        next:[]
+    }
+    
+    //Animations.animationName[nameBlock] = anObj;
+    AddAnimation( animData );
   
 }
 
-function AddNode2( el ){
+function AddAnimation( data ){
+    
+    console.log('принял на анимация', data);
+    var elm = document.getElementById(data.checkStart);
+    var elm_name = elm.getAttribute('name');
+    console.log(elm_name);
+    
+    if(data.checkStart != 'start'){
+        //Animations.animationName[elm_name].g = elm_name;
+        if(!data.child){
+            //console.log('Первый');
+            console.log('Входящие данные', Animations.animationName[elm_name]);
+            if(!Animations.animationName[elm_name].next){
+                console.log('Создал');
+                Animations.animationName[elm_name].next = [ data.name ];
+            } else {
+                console.log('Добавил');
+                Animations.animationName[elm_name].next.push(data.name);
+            }
+            
+        } else {
+            //console.log('Не первый');
+  
+        }
+       
+    } else {
+        //console.log('Самый первый');
+    }
+    
+    console.log(Animations.animationName);
+    
+}
 
-  var id_node = el.getAttribute('nodes'); 
-  var node = document.getElementById(id_node);
-  
-  
-  var _child = el.getAttribute('child'); 
-  
-  if(!_child){
-    var node_chld = document.createElement('ul');
-    node.appendChild(node_chld);
-    el.setAttribute('child', stn + rn);
-    node_chld.id = stn + rn;
-  } else {
-    var node_chld = document.getElementById(_child);
-  }
-
-  var node_block = document.createElement('li');  
-  node_block.id = stn + rn + 'block';
-  var node_block_name = document.createElement('a');
-  node_block_name.innerHTML= stn + rn;
-  node_block.appendChild(node_block_name);
-
-
-  
-  
-  var node_block_but = document.createElement('a');
-  node_block_but.innerHTML= "+";
-  node_block_but.setAttribute('nodes', stn + rn + 'block');
-  node_block_but.setAttribute('onclick', 'AddNode( this )');
-  node_block.appendChild(node_block_but);
-  
-  node_chld.appendChild(node_block);
-  node.appendChild(node_chld);
-  
-  if (Animations.animationName[id_node].next){
-    Animations.animationName[id_node].next.push(stn + rn);
-  } else {
-    Animations.animationName[id_node].next = [];
-    Animations.animationName[id_node].next.push(stn + rn);    
-  }
- 
-  var obj = {
-    grName: stn + rn
-  }
-  
-  
-  var nm = stn + rn;
-  Animations.animationName[nm] = obj;
-  //console.log(Animations.animationName);
-  
-  
-  rn += 1;
+function _ClicSwith(){
+    alert('dsf');
+    
 }
 
 
