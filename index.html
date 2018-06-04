@@ -15,7 +15,7 @@
         <h2>Диаграмма</h2>
     </header>
     <div class="group_panel">
-        <input value="Анимация" onclick="Animation('animationName', 'st')" type="button">
+        <input value="Анимация" onclick="Animation('animationName', 'start')" type="button">
         <input value="Создать группу" onclick="CreateGroup()" type="button">
         <input value="Тест" onclick="CreateGroup()" type="button">
         <h3>Группы</h3>
@@ -30,8 +30,8 @@
         <div class="tree">
             <ul>
                 <li id="animationName", name='animationName'>
-                    <a>animationName</a>
-                    <a nodes="animationName" id="animationName_p" onclick="SelectNode( this )">+</a>
+                    <a>Название блока анимаций</a>
+                    <a nodes="animationName" st="false" id="animationName_p" onclick="SelectNode( this )">+</a>
                 </li>
             </ul>
         </div>
