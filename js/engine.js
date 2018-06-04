@@ -200,6 +200,7 @@ function AddNode( el ){
     
     var animData = {}; // Пакет данных для записи анимации
     animData.checkStart = bridgeConnect;
+    animData.child = true;
     
     var _child = node_p.getAttribute('child');
     console.log(_child);
@@ -255,27 +256,31 @@ function AddNode( el ){
 }
 
 function AddAnimation( data ){
-    
+    console.log('/////////////////////////', '////////////////////');
     console.log('принял на анимация', data);
     var elm = document.getElementById(data.checkStart);
     var elm_name = elm.getAttribute('name');
-    console.log(elm_name);
+    console.log('elm_name', elm_name);
     
     if(data.checkStart != 'start'){
         //Animations.animationName[elm_name].g = elm_name;
         if(!data.child){
-            //console.log('Первый');
-            console.log('Входящие данные', Animations.animationName[elm_name]);
-            if(!Animations.animationName[elm_name].next){
-                console.log('Создал');
-                Animations.animationName[elm_name].next = [ data.name ];
+            console.log('Первый');
+            //console.log('Входящие данные', Animations.animationName[elm_name]);
+
+            if(!Animations.animationName[elm_name]){
+
+                Animations.animationName[elm_name] = { grName: elm_name,  next: [ data.name ]};
+
+                
             } else {
-                console.log('Добавил');
-                Animations.animationName[elm_name].next.push(data.name);
+
             }
             
         } else {
-            //console.log('Не первый');
+            console.log('Не первый');
+            console.log('Добавил', data.name);
+            Animations.animationName[elm_name].next.push(data.name);
   
         }
        
