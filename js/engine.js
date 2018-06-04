@@ -262,30 +262,33 @@ function AddAnimation( data ){
     var elm_name = elm.getAttribute('name');
     console.log('elm_name', elm_name);
     
-    if(data.checkStart != 'start'){
-        //Animations.animationName[elm_name].g = elm_name;
-        if(!data.child){
-            console.log('Первый');
-            //console.log('Входящие данные', Animations.animationName[elm_name]);
-
-            if(!Animations.animationName[elm_name]){
-
-                Animations.animationName[elm_name] = { grName: elm_name,  next: [ data.name ]};
-
-                
+    if(data.checkStart != 'animationName'){
+        console.log('Второй уровень нод');
+        if(Animations.animationName[elm_name]){
+            console.log('Есть блок', Animations.animationName[elm_name]);
+            if(!Animations.animationName[elm_name].next){
+                Animations.animationName[elm_name].next = [data.name]
             } else {
-
+                Animations.animationName[elm_name].next.push(data.name);
             }
             
+            
         } else {
-            console.log('Не первый');
-            console.log('Добавил', data.name);
-            Animations.animationName[elm_name].next.push(data.name);
-  
+            console.log('Нету блока')
         }
        
     } else {
-        //console.log('Самый первый');
+        console.log('От главной ноды');
+        if(!Animations['animationName']['animationName']){
+            Animations['animationName']['animationName'] = {};
+            Animations['animationName']['animationName'].grName = 'animationName';
+            Animations['animationName']['animationName'].next = [data.name];
+            Animations['animationName'][data.name] = { grName: data.name };
+        } else {
+            Animations['animationName'][data.name] = { grName: data.name };
+            Animations['animationName']['animationName'].next.push(data.name);
+        }
+        
     }
     
     console.log(Animations.animationName);
@@ -296,6 +299,7 @@ function _ClicSwith(){
     alert('dsf');
     
 }
+
 
 
 
