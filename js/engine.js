@@ -15,11 +15,6 @@ var Animations = {
   }
 }
 
-// Подумать!
-var typeEl = [{
-    _: "sdfsdf"
-}]
-
 window.addEventListener("mousedown", SelectElement, false);
 
 // Shift + Click
@@ -56,20 +51,24 @@ function SelectElement(){
             ResetAttribute(elementFromPoint, elem.getAttribute("style"));
             elem.removeAttribute("style");
               
-            if(elem.id.charAt(0) === '_'){
-                elem.setAttribute('onclick', '_ClicSwith()');
-            }
-              
-              
           }
           
           elem.setAttribute("stroke", 'green');
           
         }        
         console.log(_massGRP);        
-      }    
+      }   
   }
   
+}
+
+function DetectActionElement( name, type, nameGroup ){
+    var el = document.getElementById(name);
+    if(type === '_'){
+        el.setAttribute('onclick', '_ClicSwith()');
+    } else if(type === '#'){
+        el.setAttribute('onclick', 'Animation("animationName", "' + nameGroup + '")');
+    }
 }
 
 function CreateGroup(){
@@ -83,8 +82,17 @@ function CreateGroup(){
         if ( groupList[nameGrp] ){
           alert('Такое имя уже существует');
         } else {
+            
+          // Проверка на детектор
+          var dtction = _massGRP[0].charAt(0);
+          if ( dtction === '_' || dtction === '#'){
+              console.log('Сработал детектор');
+              DetectActionElement( _massGRP[0], dtction, nameGrp );
+          }  
+               
           groupList[nameGrp] = _massGRP;
           UILayers(nameGrp);
+            
         }        
       }
     }  
@@ -104,7 +112,8 @@ function isLat(str) {
 }
 
 function deselect(){
-   for (var i = 0; i < _massGRP.length; i++) {          document.getElementById(_massGRP[i]).setAttribute("stroke", 'black');
+   for (var i = 0; i < _massGRP.length; i++) {          
+       document.getElementById(_massGRP[i]).setAttribute("stroke", 'black');
    }
   
 }
