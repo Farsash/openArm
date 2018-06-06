@@ -9,6 +9,7 @@ var Animations = {
     },
     g2: {
       grName: 'g2'
+
     }, g3: {
       grName: 'g3'
     }
@@ -206,6 +207,7 @@ function SelectNode( el ){
 function AddNode( el ){
     console.log('Принял', bridgeConnect);
     var nameBlock = el.getAttribute('name');
+    console.log('ПРОВЕРКА', nameBlock);
     var node = document.getElementById(bridgeConnect);
     var node_p = document.getElementById(bridgeConnect + "_p");
     
@@ -266,15 +268,15 @@ function AddNode( el ){
   
 }
 
+// Сапись данных в блок анимаций
 function AddAnimation( data ){
-    console.log('/////////////////////////', '////////////////////');
-    console.log('принял на анимация', data);
+
     var elm = document.getElementById(data.checkStart);
     var elm_name = elm.getAttribute('name');
-    console.log('elm_name', elm_name);
+    //console.log('elm_name', elm_name);
     
     if(data.checkStart != 'animationName'){
-        console.log('Второй уровень нод');
+        //console.log('Второй уровень нод');
         if(Animations.animationName[elm_name]){
             console.log('Есть блок', Animations.animationName[elm_name]);
             if(!Animations.animationName[elm_name].next){
@@ -291,14 +293,13 @@ function AddAnimation( data ){
         }
        
     } else {
-        console.log('От главной ноды');
+        //console.log('От главной ноды');
         if(!Animations['animationName'][data.name]){
+            console.log('От главной ноды', 'Первое');
             Animations['animationName'][data.name] = {};
             Animations['animationName'][data.name].grName = data.name;
-        } else {
-            Animations['animationName'][data.name] = { grName: data.name };
-            Animations['animationName']['animationName'].next.push(data.name);
         }
+        // Тут был код, который уже не действует. В случае чего, см комиты
         
     }
     
